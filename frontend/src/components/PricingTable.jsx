@@ -9,7 +9,7 @@ const PricingTable = () => {
   // 2. useEffect: Se ejecuta automáticamente al abrir la página
   useEffect(() => {
     // Llamamos a la API de tu Backend
-    fetch('http://localhost:3000/api/servers')
+    fetch('https://versi-n-inicial-proyecto-full-stack.onrender.com/api/servers')
       .then((response) => {
         if (!response.ok) throw new Error('Error al conectar con el servidor');
         return response.json();
