@@ -1,0 +1,735 @@
+﻿
+// ====== ARCHIVO: tailwind.config.js ====== 
+
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        'brand-dark': '#0f172a',
+        'brand-blue': '#0066ff', 
+        'brand-light-blue': '#00ccff',
+        'btn-blue': '#38bdf8',
+        'btn-pink': '#ec4899',
+        'btn-orange': '#f97316',
+        'btn-yellow': '#eab308',
+        'btn-green': '#84cc16'
+      }
+    },
+  },
+  plugins: [],
+}
+
+// ====== ARCHIVO: App.jsx ====== 
+
+import React from 'react'
+import Home from './pages/Home.jsx'
+
+function App() {
+  return (
+    <div>
+      <Home />
+    </div>
+  )
+}
+
+export default App
+
+// ====== ARCHIVO: index.css ====== 
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// ====== ARCHIVO: main.jsx ====== 
+
+import React from 'react'
+import ReactDOM from 'react-dom/client'
+import App from './App.jsx'
+import './index.css'
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+)
+
+// ====== ARCHIVO: FaqAccordion.jsx ====== 
+
+import React, { useState } from 'react';
+
+const FaqAccordion = () => {
+  // Estado para saber cuál pregunta está abierta
+  const [activeIndex, setActiveIndex] = useState(null);
+
+  // Array con las preguntas y respuestas simuladas
+  const faqs = [
+    { q: "¿Que es un Servidor Dedicado?", a: "Es un equipo físico completo exclusivo para tu uso. No compartes recursos (RAM, CPU, Disco) con ningún otro cliente, lo que garantiza el máximo rendimiento." },
+    { q: "Diferencia de Servidores Dedicados con VPS Hosting", a: "En un VPS compartes el hardware físico con otros usuarios virtualmente. En un Dedicado, todo el servidor físico y su potencia son 100% tuyos." },
+    { q: "Diferencia de hosting compartido y Servidor Dedicado", a: "El hosting compartido es para sitios pequeños y compartes todo. El dedicado te da libertad total para instalar cualquier software y soporta alto tráfico." },
+    { q: "¿Cómo administro mi Servidor Dedicado?", a: "Te entregamos accesos completos de Administrador/Root. Podrás acceder vía SSH (Linux) o Escritorio Remoto (Windows)." },
+    { q: "¿Que puedo hacer con un Servidor Dedicado?", a: "Alojar aplicaciones empresariales, bases de datos masivas, crear tu propia empresa de hosting web, o alojar tiendas online de alto tráfico." },
+    { q: "¿Que sistema operativo debo de usar?", a: "Depende de tus necesidades. Ofrecemos diversas versiones de Linux (Ubuntu, AlmaLinux, Debian) y Windows Server." },
+    { q: "Razones para contratar un Servidor Dedicado", a: "Mayor seguridad, rendimiento superior, personalización sin límites y tiempos de carga ultrarrápidos para tus usuarios." },
+    { q: "¿Cuanto cuesta rentar un Servidor Dedicado?", a: "Nuestros planes empiezan desde $1,848.00 MXN mensuales, con descuentos si pagas anual o semestralmente." }
+  ];
+
+  return (
+    <div className="bg-gray-50 py-20 px-4">
+      <div className="max-w-5xl mx-auto">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl font-bold text-gray-800 mb-2">Preguntas Frecuentes</h2>
+          <p className="text-gray-500 text-sm">Damos respuesta a dudas básicas sobre Servidores Dedicados.</p>
+        </div>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {faqs.map((faq, i) => (
+            <div key={i} className="bg-white rounded shadow-sm border border-gray-100 overflow-hidden">
+              <div 
+                className="p-4 flex justify-between items-center cursor-pointer hover:bg-gray-50 transition select-none"
+                onClick={() => setActiveIndex(activeIndex === i ? null : i)}
+              >
+                <span className="text-sm font-semibold text-gray-700">{faq.q}</span>
+                <span className="text-2xl text-gray-400 font-light leading-none">
+                  {activeIndex === i ? '−' : '+'}
+                </span>
+              </div>
+              
+              {/* Esta es la subsección que se despliega */}
+              {activeIndex === i && (
+                <div className="p-4 bg-gray-50 border-t border-gray-100 text-sm text-gray-600 animate-fade-in-down">
+                  {faq.a}
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+        
+        <div className="text-center mt-12">
+          <button className="bg-btn-green hover:bg-green-600 text-white font-bold py-3 px-8 rounded-full text-sm shadow-md transition">
+            ¿DESEAS MÁS INFORMACIÓN?
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+export default FaqAccordion;
+
+// ====== ARCHIVO: Features.jsx ====== 
+
+import React from 'react';
+
+const Features = () => {
+  return (
+    <div className="bg-white py-20 px-4 border-t border-gray-200">
+      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
+        <div className="md:w-1/2 flex justify-center">
+           {/* Placeholder de la imagen del círculo con cuadrados */}
+           <div className="w-80 h-80 rounded-full border-4 border-yellow-400 bg-brand-dark flex flex-wrap justify-center items-center p-8 gap-2 shadow-xl">
+              {[...Array(9)].map((_, i) => (
+                <div key={i} className="w-16 h-16 bg-blue-500 rounded border-2 border-brand-light-blue"></div>
+              ))}
+           </div>
+        </div>
+        <div className="md:w-1/2">
+          <h2 className="text-3xl font-bold text-gray-800 mb-6">¿Por qué Contratar un Servidor Dedicado?</h2>
+          <p className="font-semibold mb-4 text-gray-700">Beneficios:</p>
+          <ul className="space-y-4">
+            {[
+              'El mejor rendimiento con acceso completo al hardware de tu Servidor Dedicado',
+              'Mayor seguridad, puedes configurar las reglas del firewall libremente',
+              'Uso de recursos exclusivos, CPU, RAM, Discos y Ancho de Banda',
+              'Soporte para aplicaciones exigentes con bases de datos grandes',
+              'Control administrativo completo: Acceso root o administrador'
+            ].map((item, index) => (
+              <li key={index} className="flex items-start text-sm text-gray-600">
+                <span className="text-orange-500 mr-2 font-bold">✓</span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  );
+};
+export default Features;
+
+// ====== ARCHIVO: Footer.jsx ====== 
+
+import React, { useState } from 'react';
+
+const Footer = () => {
+  // Estado para saber qué enlace está abierto
+  const [openLink, setOpenLink] = useState(null);
+
+  // Función para abrir/cerrar enlaces
+  const toggleLink = (id) => {
+    if (openLink === id) {
+      setOpenLink(null); // Si ya está abierto, lo cierra
+    } else {
+      setOpenLink(id); // Si está cerrado, lo abre
+    }
+  };
+
+  // Datos estructurados con sus descripciones
+  const col1 = [
+    { id: 'h1', title: 'WordPress Hosting', desc: 'Optimizado para WP con caché avanzado, seguridad proactiva y soporte experto.' },
+    { id: 'h2', title: 'Web Hosting', desc: 'Alojamiento compartido ideal para sitios personales y pequeñas empresas.' },
+    { id: 'h3', title: 'VPS Hosting', desc: 'Servidores Privados Virtuales con recursos dedicados y acceso root total.' },
+    { id: 'h4', title: 'Dedicado', desc: 'Máximo rendimiento y control con servidores físicos exclusivos para tu proyecto.' },
+    { id: 'h5', title: 'Reseller Hosting', desc: 'Empieza tu propia empresa de hosting usando nuestra infraestructura blanca.' },
+    { id: 'h6', title: 'Creador de Páginas Web', desc: 'Diseña tu sitio web en minutos con nuestro sistema de arrastrar y soltar.' },
+    { id: 'h7', title: 'Tienda en Línea', desc: 'Todo lo necesario para vender en internet de forma segura y rápida.' }
+  ];
+
+  const col2 = [
+    { id: 'd1', title: 'Registrar Dominio', desc: 'Busca y asegura el nombre ideal para tu marca en internet.' },
+    { id: 'd2', title: 'Transferir Dominio', desc: 'Trae tu dominio con nosotros, renuévalo y obtén beneficios exclusivos.' },
+    { id: 'd3', title: 'Certificados SSL', desc: 'Protege los datos de tus clientes y mejora tu posicionamiento en Google.' },
+    { id: 'd4', title: 'Email Hosting', desc: 'Cuentas de correo corporativo profesional con tu propio dominio.' },
+    { id: 'd5', title: 'Migración de Sitios Web', desc: 'Mudamos tu página web hacia nuestros servidores sin costo ni interrupciones.' }
+  ];
+
+  const col3 = [
+    { id: 'o1', title: 'Quienes Somos', desc: 'Conoce nuestra historia, infraestructura y visión corporativa.' },
+    { id: 'o2', title: "FAQ's", desc: 'Respuestas rápidas a las dudas más frecuentes de nuestros clientes.' },
+    { id: 'o3', title: 'Afiliados', desc: 'Gana comisiones recurrentes recomendando nuestros servicios.' },
+    { id: 'o4', title: 'Términos', desc: 'Condiciones de servicio y políticas operativas legales.' },
+    { id: 'o5', title: 'Aviso de Privacidad', desc: 'Descubre cómo protegemos y manejamos tus datos personales.' },
+    { id: 'o6', title: 'Uso de Recursos', desc: 'Políticas de uso justo para garantizar la estabilidad de la red.' },
+    { id: 'o7', title: 'SLA', desc: 'Acuerdo de Nivel de Servicio: nuestra garantía de 99.9% de tiempo en línea.' }
+  ];
+
+  return (
+    <footer className="bg-[#1e1e1e] text-white relative">
+      
+      {/* SECCIÓN 1: Formas de Pago */}
+      <div className="bg-[#414b56] py-6 px-4">
+        <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-center md:justify-start gap-12 md:pl-20">
+          <div className="text-center md:text-left">
+            <p className="font-bold text-xl tracking-wide">Formas de Pago</p>
+            <p className="text-xs text-gray-300 hover:text-white cursor-pointer transition mt-1">Ver Datos de Pago</p>
+          </div>
+          
+          <div className="flex space-x-10 items-center">
+            <div className="flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition">
+              <div className="text-3xl">💳</div>
+              <div className="w-4 h-4 bg-green-500 rounded-full text-[10px] flex items-center justify-center font-bold text-white shadow">?</div>
+            </div>
+            <div className="flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition">
+              <div className="text-2xl font-bold text-blue-300 italic tracking-tighter">PayPal</div>
+              <div className="w-4 h-4 bg-green-500 rounded-full text-[10px] flex items-center justify-center font-bold text-white shadow">?</div>
+            </div>
+            <div className="flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition">
+              <div className="text-xl font-bold text-red-600 bg-white px-2 rounded-sm border-b-2 border-yellow-400">OXXO</div>
+              <div className="w-4 h-4 bg-green-500 rounded-full text-[10px] flex items-center justify-center font-bold text-white shadow">?</div>
+            </div>
+            <div className="flex flex-col items-center gap-1 cursor-pointer hover:scale-105 transition">
+              <div className="flex items-center gap-2">
+                <span className="text-2xl">🏦</span>
+                <span className="text-xl font-bold text-gray-300 tracking-widest">BANCOS</span>
+              </div>
+              <div className="w-4 h-4 bg-green-500 rounded-full text-[10px] flex items-center justify-center font-bold text-white shadow">?</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* SECCIÓN 2: Enlaces (Mega Menu Footer Interactivo) */}
+      <div className="bg-[#1e1e1e] py-16 px-4">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 text-sm text-gray-300 md:pl-20">
+          
+          {/* Columna 1 */}
+          <div>
+            <h4 className="text-white font-bold mb-6 text-base tracking-wide">Servicios de<br/>Hosting</h4>
+            <ul className="space-y-1">
+              {col1.map((item) => (
+                <li key={item.id} className="w-full">
+                  <div 
+                    onClick={() => toggleLink(item.id)}
+                    className="hover:text-white cursor-pointer transition flex justify-between items-center w-4/5 text-gray-400 py-1.5"
+                  >
+                    <span>{item.title}</span>
+                    <span className={`text-gray-500 text-[10px] transition-transform duration-300 ${openLink === item.id ? 'rotate-90 text-[#38bdf8]' : ''}`}>
+                      ▸
+                    </span>
+                  </div>
+                  {/* Contenido desplegable */}
+                  {openLink === item.id && (
+                    <div className="text-xs text-gray-500 pl-3 pr-6 py-2 border-l-2 border-[#38bdf8] ml-1 mb-2 bg-[#252525] rounded-r-md">
+                      {item.desc}
+                    </div>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Columna 2 */}
+          <div>
+            <h4 className="text-white font-bold mb-6 text-base tracking-wide">Dominios y<br/>Seguridad</h4>
+            <ul className="space-y-1">
+              {col2.map((item) => (
+                <li key={item.id} className="w-full">
+                  <div 
+                    onClick={() => toggleLink(item.id)}
+                    className="hover:text-white cursor-pointer transition flex justify-between items-center w-4/5 text-gray-400 py-1.5"
+                  >
+                    <span>{item.title}</span>
+                    <span className={`text-gray-500 text-[10px] transition-transform duration-300 ${openLink === item.id ? 'rotate-90 text-[#38bdf8]' : ''}`}>
+                      ▸
+                    </span>
+                  </div>
+                  {openLink === item.id && (
+                    <div className="text-xs text-gray-500 pl-3 pr-6 py-2 border-l-2 border-[#38bdf8] ml-1 mb-2 bg-[#252525] rounded-r-md">
+                      {item.desc}
+                    </div>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Columna 3 */}
+          <div>
+            <h4 className="text-white font-bold mb-6 text-base tracking-wide">Otros<br/>&nbsp;</h4>
+            <ul className="space-y-1">
+              {col3.map((item) => (
+                <li key={item.id} className="w-full">
+                  <div 
+                    onClick={() => toggleLink(item.id)}
+                    className="hover:text-white cursor-pointer transition flex justify-between items-center w-3/5 text-gray-400 py-1.5"
+                  >
+                    <span>{item.title}</span>
+                    <span className={`text-gray-500 text-[10px] transition-transform duration-300 ${openLink === item.id ? 'rotate-90 text-[#38bdf8]' : ''}`}>
+                      ▸
+                    </span>
+                  </div>
+                  {openLink === item.id && (
+                    <div className="text-xs text-gray-500 pl-3 pr-6 py-2 border-l-2 border-[#38bdf8] ml-1 mb-2 bg-[#252525] rounded-r-md w-[80%]">
+                      {item.desc}
+                    </div>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Columna 4 - Marca e Info */}
+          <div>
+            <div className="flex items-center gap-2 mb-6 cursor-pointer">
+              <div className="w-6 h-6 bg-[#38bdf8] flex items-center justify-center rounded-sm">
+                <span className="text-white font-black text-sm">W</span>
+              </div>
+              <span className="text-white font-bold text-lg tracking-tighter">WEBHOSTING<span className="text-[10px] font-normal text-[#38bdf8]">.MX</span></span>
+            </div>
+            
+            <p className="text-xs mb-6 text-gray-400 leading-relaxed pr-8">
+              Web Hosting MX, proveedor de<br/>
+              servicios de web hosting en México<br/>
+              de alto desempeño y registrar<br/>
+              acreditado de dominios .MX
+            </p>
+
+            {/* Badges de Seguridad */}
+            <div className="flex gap-2 mb-6">
+              <div className="border border-gray-600 rounded px-3 py-1 flex items-center justify-center bg-[#2a2f35]">
+                <span className="font-black text-white text-xl tracking-tighter">.mx</span>
+              </div>
+              <div className="border border-gray-600 rounded px-2 py-1 flex items-center justify-center bg-[#2a2f35] gap-2">
+                 <span className="text-xl">🛡️</span>
+                 <span className="text-gray-300 font-bold text-[10px] leading-none text-left">SECURE<br/><span className="text-[8px] font-normal">SSL ENCRYPTION</span></span>
+              </div>
+            </div>
+
+            <div className="text-xs text-gray-400 mb-4 cursor-pointer hover:text-white transition">Internacional | Europa</div>
+            
+            {/* Redes Sociales */}
+            <div className="flex gap-2">
+              <div className="w-6 h-6 bg-[#1877f2] rounded flex items-center justify-center cursor-pointer text-white font-bold text-xs hover:opacity-80">f</div>
+              <div className="w-6 h-6 bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 rounded flex items-center justify-center cursor-pointer text-white font-bold text-xs hover:opacity-80">ig</div>
+              <div className="w-6 h-6 bg-[#21759b] rounded flex items-center justify-center cursor-pointer text-white font-bold text-xs hover:opacity-80">W</div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+
+      {/* SECCIÓN 3: Copyright y Créditos */}
+      <div className="bg-[#111111] py-6 px-4 text-center border-t border-[#333]">
+        <p className="text-gray-500 text-[11px] mb-1">
+          Derechos Reservados © {new Date().getFullYear()} <strong className="text-gray-400">Web Hosting MX</strong> | El Hosting de México | <span className="text-gray-400 cursor-pointer hover:text-white transition">Mapa del Sitio</span>
+        </p>
+        <p className="text-gray-600 text-[10px] mb-4">
+          Web Hosting y Dominios S. de R.L. de C.V.
+        </p>
+        
+        {/* Créditos de Uriel */}
+        <p className="text-gray-400 text-xs">
+          Proyecto Frontend. 
+          <span className="ml-1 text-[#38bdf8] font-bold tracking-wider hover:text-white cursor-default transition">
+            Elaborado por Uriel Zagada.
+          </span>
+        </p>
+      </div>
+
+      {/* BOTÓN FLOTANTE WHATSAPP */}
+      <a href="#" className="fixed bottom-6 right-6 bg-[#00cbf0] hover:bg-[#00a8c6] text-white px-5 py-2.5 rounded-full flex items-center gap-2 shadow-2xl transition-all transform hover:scale-105 z-50">
+        <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+        </svg>
+        <span className="font-semibold text-sm">WhatsApp</span>
+      </a>
+
+    </footer>
+  );
+};
+export default Footer;
+
+// ====== ARCHIVO: Hero.jsx ====== 
+
+import React from 'react';
+
+const Hero = () => {
+  return (
+    <div className="bg-gradient-to-r from-brand-blue to-blue-500 text-white py-20 px-6 overflow-hidden">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center">
+        
+        {/* Lado izquierdo: Textos */}
+        <div className="md:w-1/2 pr-8 text-center md:text-left z-10">
+          <p className="text-brand-light-blue font-bold mb-2 tracking-wide uppercase text-sm">Servidores Dedicados Premium</p>
+          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight drop-shadow-md">
+            Servidores Dedicados en México
+          </h1>
+          <p className="text-lg mb-8 text-blue-100">
+            Contratos mensuales flexibles para el crecimiento sostenido de tu empresa, sin plazos forzosos, cargos ocultos con 99.99% Online y tráfico ilimitado.
+          </p>
+          <button className="bg-brand-dark hover:bg-gray-800 text-white font-bold py-3 px-8 rounded-full shadow-xl hover:shadow-2xl transition duration-300 transform hover:-translate-y-1">
+            ¡Inicia tu crecimiento Hoy!
+          </button>
+        </div>
+
+        {/* Lado derecho: Nueva Ilustración de Servidor */}
+        <div className="md:w-1/2 mt-16 md:mt-0 flex justify-center relative">
+          
+          {/* Luz de fondo brillante (Glow effect) */}
+          <div className="absolute w-80 h-80 bg-blue-300 rounded-full mix-blend-overlay filter blur-3xl opacity-50 animate-pulse"></div>
+          
+          {/* Contenedor con animación de flotación */}
+          <div className="relative animate-[bounce_4s_infinite] drop-shadow-2xl">
+            <svg width="350" height="400" viewBox="0 0 300 380" fill="none" xmlns="http://www.w3.org/2000/svg">
+              {/* Estructura principal del Rack */}
+              <rect x="20" y="10" width="260" height="360" rx="15" fill="#0f172a" stroke="#38bdf8" strokeWidth="4"/>
+              
+              {/* Servidor 1 */}
+              <g transform="translate(35, 40)">
+                <rect width="230" height="60" rx="8" fill="#1e293b"/>
+                <rect x="10" y="25" width="120" height="10" rx="5" fill="#334155"/>
+                <circle cx="160" cy="30" r="6" fill="#ef4444" className="animate-pulse" />
+                <circle cx="180" cy="30" r="6" fill="#22c55e" />
+                <circle cx="200" cy="30" r="6" fill="#22c55e" />
+              </g>
+
+              {/* Servidor 2 */}
+              <g transform="translate(35, 120)">
+                <rect width="230" height="60" rx="8" fill="#1e293b"/>
+                <rect x="10" y="25" width="120" height="10" rx="5" fill="#334155"/>
+                <circle cx="160" cy="30" r="6" fill="#22c55e" />
+                <circle cx="180" cy="30" r="6" fill="#22c55e" className="animate-pulse"/>
+                <circle cx="200" cy="30" r="6" fill="#38bdf8" />
+              </g>
+
+              {/* Servidor 3 */}
+              <g transform="translate(35, 200)">
+                <rect width="230" height="60" rx="8" fill="#1e293b"/>
+                <rect x="10" y="25" width="120" height="10" rx="5" fill="#334155"/>
+                <circle cx="160" cy="30" r="6" fill="#22c55e" />
+                <circle cx="180" cy="30" r="6" fill="#22c55e" />
+                <circle cx="200" cy="30" r="6" fill="#22c55e" className="animate-[pulse_1s_infinite]"/>
+              </g>
+
+              {/* Servidor 4 (Base de datos) */}
+              <g transform="translate(35, 280)">
+                <rect width="230" height="60" rx="8" fill="#1e293b"/>
+                <path d="M10 30 C 10 15, 60 15, 60 30 C 60 45, 10 45, 10 30 Z" fill="#38bdf8" opacity="0.8"/>
+                <path d="M10 35 C 10 50, 60 50, 60 35" stroke="#38bdf8" fill="none" strokeWidth="2" opacity="0.8"/>
+                <path d="M10 40 C 10 55, 60 55, 60 40" stroke="#38bdf8" fill="none" strokeWidth="2" opacity="0.8"/>
+                <circle cx="160" cy="30" r="6" fill="#eab308" className="animate-pulse" />
+                <circle cx="180" cy="30" r="6" fill="#22c55e" />
+                <circle cx="200" cy="30" r="6" fill="#22c55e" />
+              </g>
+            </svg>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  );
+};
+export default Hero;
+
+// ====== ARCHIVO: Navbar.jsx ====== 
+
+import React from 'react';
+
+const Navbar = () => {
+  return (
+    <nav className="bg-brand-blue text-white py-4 px-6 shadow-md">
+      <div className="max-w-7xl mx-auto flex justify-between items-center">
+        <div className="flex items-center space-x-2">
+          <div className="text-3xl font-black tracking-tighter">WEBHOSTING<span className="text-sm font-normal text-brand-light-blue">.MX</span></div>
+        </div>
+        <div className="hidden md:flex space-x-6 text-sm font-semibold">
+          <a href="#" className="hover:text-brand-light-blue">WEB HOSTING</a>
+          <a href="#" className="hover:text-brand-light-blue">SERVIDORES</a>
+          <a href="#" className="hover:text-brand-light-blue">DOMINIOS</a>
+          <a href="#" className="bg-green-500 px-4 py-1 rounded-full text-xs">Mi Panel</a>
+        </div>
+      </div>
+    </nav>
+  );
+};
+export default Navbar;
+
+// ====== ARCHIVO: PaymentGatewayMock.jsx ====== 
+
+import React, { useState } from 'react';
+
+const PaymentGatewayMock = () => {
+  // Estado para simular la carga del pago
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  // Función que se ejecuta al darle clic en pagar
+  const handlePayment = (e) => {
+    e.preventDefault(); // Evita que la página se recargue
+    setIsProcessing(true); // Cambia el botón a "Procesando..."
+    
+    // Simulamos un retraso de 2.5 segundos de "conexión al banco"
+    setTimeout(() => {
+      setIsProcessing(false);
+      alert('¡Aprobado! Pago simulado exitosamente.\n\nEn el futuro, esto se conectará a Stripe, PayPal o tu Backend.');
+    }, 2500);
+  };
+
+  return (
+    // Agregamos el ID para que los botones de la tabla bajen hasta aquí
+    <div id="seccion-pago" className="bg-white py-20 px-4 border-t border-gray-200 scroll-mt-10">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-10">
+          <h2 className="text-3xl font-bold text-gray-800 mb-2">Pasarela de Pago Segura</h2>
+          <p className="text-gray-500 text-sm">Estás a un paso de obtener tu Servidor Dedicado</p>
+        </div>
+
+        {/* Convertimos esto en un <form> real */}
+        <form onSubmit={handlePayment} className="flex flex-col md:flex-row gap-8">
+          
+          <div className="md:w-2/3 bg-gray-50 p-8 rounded-lg shadow-inner border border-gray-200">
+            <h3 className="text-xl font-bold mb-4 border-b pb-2">Datos de Facturación</h3>
+            <div className="space-y-4">
+              <div>
+                <label className="block text-sm font-semibold mb-1 text-gray-700">Nombre en la tarjeta</label>
+                <input required type="text" placeholder="Ej. Juan Pérez" className="w-full border border-gray-300 rounded p-3 focus:ring-2 focus:ring-brand-blue outline-none" />
+              </div>
+              <div>
+                <label className="block text-sm font-semibold mb-1 text-gray-700">Número de Tarjeta</label>
+                <input required type="text" placeholder="0000 0000 0000 0000" maxLength="16" className="w-full border border-gray-300 rounded p-3 focus:ring-2 focus:ring-brand-blue outline-none font-mono" />
+              </div>
+              <div className="flex gap-4">
+                <div className="w-1/2">
+                  <label className="block text-sm font-semibold mb-1 text-gray-700">Vencimiento (MM/AA)</label>
+                  <input required type="text" placeholder="12/25" maxLength="5" className="w-full border border-gray-300 rounded p-3 focus:ring-2 focus:ring-brand-blue outline-none text-center" />
+                </div>
+                <div className="w-1/2">
+                  <label className="block text-sm font-semibold mb-1 text-gray-700">CVC</label>
+                  <input required type="password" placeholder="***" maxLength="3" className="w-full border border-gray-300 rounded p-3 focus:ring-2 focus:ring-brand-blue outline-none text-center font-mono" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="md:w-1/3 bg-brand-dark text-white p-6 rounded-lg shadow-xl flex flex-col justify-between">
+            <div>
+              <h3 className="text-xl font-bold mb-4 border-b border-gray-600 pb-2">Resumen</h3>
+              <div className="flex justify-between text-sm mb-3 text-gray-300">
+                <span>Servidor M1 (1 mes)</span>
+                <span>$1,848.00</span>
+              </div>
+              <div className="flex justify-between text-sm mb-4 text-gray-300">
+                <span>IVA (16%)</span>
+                <span>$295.68</span>
+              </div>
+              <div className="flex justify-between text-xl font-bold border-t border-gray-600 pt-4 mb-6">
+                <span>Total MXN</span>
+                <span className="text-green-400">$2,143.68</span>
+              </div>
+            </div>
+            
+            <div>
+              <button 
+                type="submit" 
+                disabled={isProcessing}
+                className={`w-full py-4 rounded-lg font-bold text-center transition-all ${
+                  isProcessing ? 'bg-gray-500 cursor-not-allowed' : 'bg-green-500 hover:bg-green-600'
+                }`}
+              >
+                {isProcessing ? 'Procesando Pago...' : 'Pagar de Forma Segura'}
+              </button>
+              <p className="text-xs text-gray-400 text-center mt-4">🔒 Transacción encriptada con SSL de 256 bits.</p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+export default PaymentGatewayMock;
+
+// ====== ARCHIVO: PricingTable.jsx ====== 
+
+import React, { useState, useEffect } from 'react';
+
+const PricingTable = () => {
+  // 1. Estados para guardar los datos y controlar la pantalla de carga
+  const [servers, setServers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  // 2. useEffect: Se ejecuta automáticamente al abrir la página
+  useEffect(() => {
+    // Llamamos a la API de tu Backend
+    fetch('https://versi-n-inicial-proyecto-full-stack.onrender.com/api/servers')
+      .then((response) => {
+        if (!response.ok) throw new Error('Error al conectar con el servidor');
+        return response.json();
+      })
+      .then((data) => {
+        setServers(data); // Guardamos los datos de la base de datos
+        setLoading(false); // Apagamos el mensaje de carga
+      })
+      .catch((err) => {
+        console.error(err);
+        setError('No se pudo conectar con la base de datos.');
+        setLoading(false);
+      });
+  }, []);
+
+  return (
+    <div className="bg-[#111111] py-16 px-4 font-sans">
+      <div className="max-w-7xl mx-auto">
+        <h2 className="text-3xl md:text-4xl font-bold text-center text-white mb-4 tracking-tight">
+          Servidores Dedicados <span className="text-[#38bdf8]">Premium</span>
+        </h2>
+        <p className="text-center text-gray-400 mb-12 text-sm md:text-base">
+          Datos extraídos en tiempo real desde nuestra base de datos PostgreSQL en la nube.
+        </p>
+
+        {/* Pantalla de Carga */}
+        {loading && (
+          <div className="flex flex-col items-center justify-center py-20">
+            <div className="w-12 h-12 border-4 border-[#38bdf8] border-t-transparent rounded-full animate-spin mb-4"></div>
+            <p className="text-[#38bdf8] font-bold animate-pulse tracking-widest">CONECTANDO A SUPABASE...</p>
+          </div>
+        )}
+
+        {/* Pantalla de Error */}
+        {error && (
+          <div className="bg-red-500/10 border border-red-500 text-red-500 p-4 rounded-lg text-center max-w-2xl mx-auto">
+            <span className="text-2xl block mb-2">⚠️</span>
+            {error} <br/> <span className="text-xs text-gray-400">¿El backend en el puerto 3000 está encendido?</span>
+          </div>
+        )}
+
+        {/* Tabla Real renderizada desde la Base de Datos */}
+        {!loading && !error && (
+          <div className="overflow-x-auto shadow-2xl rounded-xl border border-[#333] bg-[#1e1e1e]">
+            <table className="w-full text-left border-collapse whitespace-nowrap">
+              <thead>
+                <tr className="bg-[#2a2f35] text-gray-300 text-xs md:text-sm uppercase tracking-wider border-b border-gray-600">
+                  <th className="py-5 px-6 font-bold rounded-tl-xl">Modelo</th>
+                  <th className="py-5 px-6 font-bold">RAM</th>
+                  <th className="py-5 px-6 font-bold">Procesador</th>
+                  <th className="py-5 px-6 font-bold">Disco Duro</th>
+                  <th className="py-5 px-6 font-bold">Raid</th>
+                  <th className="py-5 px-6 font-bold">Uplink</th>
+                  <th className="py-5 px-6 font-bold">Precio</th>
+                  <th className="py-5 px-6 font-bold text-center rounded-tr-xl">Acción</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-700/50">
+                {servers.map((server) => (
+                  <tr key={server.id} className="hover:bg-[#252a30] transition-colors duration-200 group">
+                    <td className="py-5 px-6">
+                      <span className="bg-[#2a2f35] text-[#38bdf8] font-black px-3 py-1 rounded text-lg border border-[#333] group-hover:border-[#38bdf8] transition-colors">
+                        {server.id}
+                      </span>
+                    </td>
+                    <td className="py-5 px-6 font-bold text-gray-200 text-lg">{server.ram}</td>
+                    <td className="py-5 px-6">
+                      <div className="font-bold text-white text-base">{server.cpu}</div>
+                      <div className="text-xs text-gray-500 font-medium tracking-wide mt-0.5">{server.cpu_sub}</div>
+                    </td>
+                    <td className="py-5 px-6 text-sm text-gray-300 font-medium">{server.disk}</td>
+                    <td className="py-5 px-6 text-sm text-gray-300">{server.raid}</td>
+                    <td className="py-5 px-6 text-sm text-gray-300">{server.bw}</td>
+                    <td className="py-5 px-6 text-xl font-black text-white">
+                      {server.price} <span className="text-xs text-gray-500 font-normal">/mes</span>
+                    </td>
+                    <td className="py-5 px-6 text-center">
+                      <button className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold py-2 px-6 rounded-full shadow-[0_0_15px_rgba(56,189,248,0.4)] hover:shadow-[0_0_25px_rgba(56,189,248,0.6)] transform hover:-translate-y-1 transition-all">
+                        Contratar
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default PricingTable;
+
+// ====== ARCHIVO: ServerCard.jsx ====== 
+
+
+// ====== ARCHIVO: Checkout.jsx ====== 
+
+
+// ====== ARCHIVO: ClientDashboard.jsx ====== 
+
+
+// ====== ARCHIVO: Home.jsx ====== 
+
+import React from 'react';
+import Navbar from '../components/Navbar.jsx';
+import Hero from '../components/Hero.jsx';
+import PricingTable from '../components/PricingTable.jsx';
+import Features from '../components/Features.jsx';
+import FaqAccordion from '../components/FaqAccordion.jsx';
+import PaymentGatewayMock from '../components/PaymentGatewayMock.jsx';
+import Footer from '../components/Footer.jsx';
+
+const Home = () => {
+  return (
+    <div className="min-h-screen font-sans bg-gray-50">
+      <Navbar />
+      <Hero />
+      <PricingTable />
+      <Features />
+      <FaqAccordion />
+      <PaymentGatewayMock />
+      <Footer />
+    </div>
+  );
+};
+
+export default Home;

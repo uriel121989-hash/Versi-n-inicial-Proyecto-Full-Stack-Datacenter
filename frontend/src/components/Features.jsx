@@ -1,34 +1,27 @@
 ﻿import React from 'react';
-
 const Features = () => {
+  const items = [
+    { t: "99.9% Uptime", d: "Garantía de disponibilidad para tu negocio.", i: "💎" },
+    { t: "Soporte Local", d: "Expertos en México listos para ayudarte 24/7.", i: "🇲🇽" },
+    { t: "Conexión 1Gbps", d: "Velocidad de red premium sin cuellos de botella.", i: "🚀" },
+    { t: "Hardware Nuevo", d: "Equipos de última generación Intel y AMD.", i: "🛠️" }
+  ];
   return (
-    <div className="bg-white py-20 px-4 border-t border-gray-200">
-      <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12">
-        <div className="md:w-1/2 flex justify-center">
-           {/* Placeholder de la imagen del círculo con cuadrados */}
-           <div className="w-80 h-80 rounded-full border-4 border-yellow-400 bg-brand-dark flex flex-wrap justify-center items-center p-8 gap-2 shadow-xl">
-              {[...Array(9)].map((_, i) => (
-                <div key={i} className="w-16 h-16 bg-blue-500 rounded border-2 border-brand-light-blue"></div>
-              ))}
-           </div>
+    <div className="bg-white py-24 px-6 border-t border-slate-100">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
+        <div className="md:w-1/2 grid grid-cols-2 gap-6">
+          {items.map((item, i) => (
+            <div key={i} className="p-8 bg-brand-bg/50 border border-brand-secondary/10 rounded-2xl hover:bg-brand-bg transition-all group">
+              <div className="text-3xl mb-4">{item.i}</div>
+              <h3 className="text-brand-dark font-black mb-2">{item.t}</h3>
+              <p className="text-slate-500 text-sm leading-relaxed">{item.d}</p>
+            </div>
+          ))}
         </div>
         <div className="md:w-1/2">
-          <h2 className="text-3xl font-bold text-gray-800 mb-6">¿Por qué Contratar un Servidor Dedicado?</h2>
-          <p className="font-semibold mb-4 text-gray-700">Beneficios:</p>
-          <ul className="space-y-4">
-            {[
-              'El mejor rendimiento con acceso completo al hardware de tu Servidor Dedicado',
-              'Mayor seguridad, puedes configurar las reglas del firewall libremente',
-              'Uso de recursos exclusivos, CPU, RAM, Discos y Ancho de Banda',
-              'Soporte para aplicaciones exigentes con bases de datos grandes',
-              'Control administrativo completo: Acceso root o administrador'
-            ].map((item, index) => (
-              <li key={index} className="flex items-start text-sm text-gray-600">
-                <span className="text-orange-500 mr-2 font-bold">✓</span>
-                {item}
-              </li>
-            ))}
-          </ul>
+          <h2 className="text-4xl md:text-5xl font-black text-brand-dark mb-6 leading-tight">Infraestructura <br/><span className="text-brand-secondary">de confianza.</span></h2>
+          <p className="text-slate-500 text-lg mb-8 leading-relaxed font-medium">Diseñamos soluciones que se adaptan al crecimiento de tu empresa con seguridad y escalabilidad.</p>
+          <button className="bg-brand-secondary text-white px-8 py-3 rounded-lg font-bold hover:bg-sky-600 transition-all shadow-lg shadow-sky-100">SABER MÁS</button>
         </div>
       </div>
     </div>
